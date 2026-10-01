@@ -1,8 +1,594 @@
-<html>
-  <head>
-    <title>Super poberanie</title>
-  </head>
-  <body>
-    super strona
-  </body>
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Name - Download</title>
+
+    <style>
+        /* ===== GENERAL ===== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b0d12;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ===== BACKGROUND ===== */
+
+        .background {
+            position: fixed;
+            inset: -15%;
+            z-index: -2;
+
+            background-image: url(
+                "https://placehold.co/1920x1080/182538/ffffff?text=BACKGROUND+PLACEHOLDER"
+            );
+
+            background-size: cover;
+            background-position: center;
+            transform: translate3d(0, 0, 0) scale(1.12);
+            will-change: transform;
+        }
+
+        .background-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(5, 8, 15, 0.45),
+                    rgba(5, 8, 15, 0.88) 55%,
+                    #0b0d12
+                );
+        }
+
+        /* ===== NAVIGATION ===== */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 22px 9%;
+
+            background: rgba(10, 13, 20, 0.65);
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: #c5cbd6;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        /* ===== HERO ===== */
+
+        .hero {
+            min-height: 90vh;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+            padding: 140px 20px 80px;
+        }
+
+        .hero-label {
+            color: #91a9ff;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 9vw, 100px);
+            font-weight: 800;
+            letter-spacing: -4px;
+
+            text-shadow: 0 5px 35px rgba(0,0,0,0.4);
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin-top: 25px;
+
+            color: #c6cad4;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .hero-button {
+            display: inline-block;
+            margin-top: 35px;
+            padding: 15px 35px;
+
+            background: #637fff;
+            border-radius: 7px;
+
+            font-weight: bold;
+            transition: 0.25s;
+        }
+
+        .hero-button:hover {
+            background: #8197ff;
+            transform: translateY(-3px);
+        }
+
+        /* ===== GENERAL SECTIONS ===== */
+
+        section {
+            padding: 100px 9%;
+            scroll-margin-top: 75px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .section-description {
+            color: #9da5b5;
+            line-height: 1.7;
+            margin-bottom: 45px;
+        }
+
+        /* ===== GALLERY ===== */
+
+        .gallery {
+            background: rgba(11, 13, 18, 0.88);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 12px;
+            background: #171c27;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-7px);
+            border-color: rgba(120,145,255,0.6);
+        }
+
+        .gallery-item img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+        }
+
+        .gallery-caption {
+            padding: 18px;
+        }
+
+        .gallery-caption h3 {
+            margin-bottom: 8px;
+        }
+
+        .gallery-caption p {
+            color: #929baa;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* ===== DOWNLOADS ===== */
+
+        .downloads {
+            background: #0b0d12;
+            text-align: center;
+        }
+
+        .downloads .section-description {
+            margin-bottom: 55px;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 350px));
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .download-card {
+            padding: 35px 28px;
+
+            background: #151a25;
+            border: 1px solid #292f40;
+            border-radius: 12px;
+
+            transition: 0.3s;
+        }
+
+        .download-card:hover {
+            transform: translateY(-6px);
+            border-color: #637fff;
+        }
+
+        .download-card h3 {
+            font-size: 26px;
+            margin-bottom: 12px;
+        }
+
+        .download-card p {
+            color: #a1a9b8;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .download-button {
+            display: block;
+            margin-top: 25px;
+            padding: 14px;
+
+            background: #637fff;
+            border-radius: 7px;
+
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .download-button:hover {
+            background: #8197ff;
+        }
+
+        .safe-button {
+            background: #258e70;
+        }
+
+        .safe-button:hover {
+            background: #30ae89;
+        }
+
+        .version-info {
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid #303746;
+
+            color: #929baa;
+            font-size: 12px;
+            line-height: 1.9;
+        }
+
+        .version-info strong {
+            color: #dce1ed;
+        }
+
+        /* ===== FOOTER ===== */
+
+        footer {
+            padding: 35px 9%;
+            text-align: center;
+
+            background: #080a0f;
+            border-top: 1px solid #202532;
+        }
+
+        footer p {
+            color: #8b93a1;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        footer .copyright {
+            margin-top: 12px;
+            font-size: 11px;
+            color: #5f6877;
+        }
+
+        /* ===== RESPONSIVE ===== */
+
+        @media (max-width: 800px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            nav {
+                padding: 18px 5%;
+            }
+
+            section {
+                padding: 80px 6%;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .download-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 13px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .logo {
+                font-size: 16px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- BACKGROUND -->
+
+    <div class="background" id="background"></div>
+    <div class="background-overlay"></div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav>
+        <div class="logo">PROJECT NAME</div>
+
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#downloads">Downloads</a>
+        </div>
+    </nav>
+
+
+    <!-- HERO -->
+
+    <header class="hero" id="home">
+
+        <div class="hero-label">Official Download Page</div>
+
+        <h1>PROJECT NAME</h1>
+
+        <p>
+            Tutaj znajduje się opis Twojego projektu.
+            Możesz napisać, czym jest plik, do czego służy
+            i co użytkownik znajdzie po jego pobraniu.
+        </p>
+
+        <a href="#downloads" class="hero-button">
+            Pobierz teraz
+        </a>
+
+    </header>
+
+
+    <!-- GALLERY -->
+
+    <section class="gallery" id="gallery">
+
+        <h2 class="section-title">Galeria</h2>
+
+        <p class="section-description">
+            Zobacz, jak prezentuje się projekt.
+        </p>
+
+        <div class="gallery-grid">
+
+            <div class="gallery-item">
+                <img
+                    src="https://placehold.co/800x500/202d42/ffffff?text=SCREENSHOT+1"
+                    alt="Screenshot 1"
+                >
+
+                <div class="gallery-caption">
+                    <h3>Prezentacja 01</h3>
+                    <p>Opis pierwszego zdjęcia.</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img
+                    src="https://placehold.co/800x500/29364d/ffffff?text=SCREENSHOT+2"
+                    alt="Screenshot 2"
+                >
+
+                <div class="gallery-caption">
+                    <h3>Prezentacja 02</h3>
+                    <p>Opis drugiego zdjęcia.</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img
+                    src="https://placehold.co/800x500/34415c/ffffff?text=SCREENSHOT+3"
+                    alt="Screenshot 3"
+                >
+
+                <div class="gallery-caption">
+                    <h3>Prezentacja 03</h3>
+                    <p>Opis trzeciego zdjęcia.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DOWNLOADS -->
+
+    <section class="downloads" id="downloads">
+
+        <h2 class="section-title">Pobieranie</h2>
+
+        <p class="section-description">
+            Wybierz wersję, którą chcesz pobrać.
+        </p>
+
+        <div class="download-grid">
+
+            <!-- DEFAULT -->
+
+            <div class="download-card">
+
+                <h3>Default</h3>
+
+                <p>
+                    Standardowa wersja projektu.
+                    Zawiera podstawowe funkcjonalności.
+                </p>
+
+                <a
+                    href="default.zip"
+                    class="download-button"
+                    download
+                >
+                    Pobierz Default
+                </a>
+
+                <div class="version-info">
+                    <strong>Wersja:</strong> 1.0.0<br>
+                    <strong>Kompatybilność:</strong> Windows 10 / 11<br>
+                    <strong>Typ:</strong> Default
+                </div>
+
+            </div>
+
+
+            <!-- SAFE -->
+
+            <div class="download-card">
+
+                <h3>Safe</h3>
+
+                <p>
+                    Alternatywna wersja projektu.
+                    Przeznaczona dla użytkowników
+                    preferujących wariant Safe.
+                </p>
+
+                <a
+                    href="safe.zip"
+                    class="download-button safe-button"
+                    download
+                >
+                    Pobierz Safe
+                </a>
+
+                <div class="version-info">
+                    <strong>Wersja:</strong> 1.0.0<br>
+                    <strong>Kompatybilność:</strong> Windows 10 / 11<br>
+                    <strong>Typ:</strong> Safe
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            PROJECT NAME — Official Website
+        </p>
+
+        <p class="copyright">
+            © 2026 PROJECT NAME. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT: DELAYED PARALLAX -->
+
+    <script>
+
+        const background = document.getElementById("background");
+
+        let currentPosition = 0;
+        let targetPosition = 0;
+
+        // Reakcja na scrollowanie
+        window.addEventListener("scroll", () => {
+
+            targetPosition = window.scrollY * -0.18;
+
+        }, { passive: true });
+
+
+        // Płynne doganianie pozycji
+        function animateBackground() {
+
+            currentPosition +=
+                (targetPosition - currentPosition) * 0.045;
+
+            background.style.transform =
+                `translate3d(0, ${currentPosition}px, 0) scale(1.12)`;
+
+            requestAnimationFrame(animateBackground);
+
+        }
+
+        animateBackground();
+
+    </script>
+
+</body>
 </html>
